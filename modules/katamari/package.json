@@ -19,6 +19,9 @@
   "dependencies": {
     "@ephox/dispute": "^1.0.3"
   },
+  "devDependencies": {
+    "@ephox/bedrock-client": "11 || 12 || 13 || 14"
+  },
   "files": [
     "lib/main",
     "lib/demo",

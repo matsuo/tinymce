@@ -532,7 +532,8 @@ module.exports = function (grunt) {
               'modules/tinymce/tools',
               'bin',
               'patches',
-              '.yarnrc',
+              '.npmrc',
+              'pnpm-workspace.yaml',
               'LICENSE.TXT',
               'NOTICES.txt',
               'README.md',
@@ -540,7 +541,7 @@ module.exports = function (grunt) {
               'package.json',
               'tsconfig*.json',
               '.eslint*.json',
-              'yarn.lock'
+              'pnpm-lock.yaml'
             ]
           },
           {
@@ -949,7 +950,7 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt, {
     requireResolution: true,
     config: "../../package.json",
-    pattern: ['grunt-*', '@ephox/bedrock', '@ephox/swag']
+    pattern: ['grunt-*', '@ephox/bedrock-server', '@ephox/swag']
   });
   grunt.loadTasks('tools/tasks');
 
@@ -983,7 +984,7 @@ module.exports = function (grunt) {
     'emoji',
     'html-i18n',
     // TODO: Make webpack use the oxide CSS directly
-    // as well as making development easier, then we can update 'yarn dev' to run 'oxide-build' in parallel with 'tinymce-grunt dev'
+    // as well as making development easier, then we can update 'pnpm dev' to run 'oxide-build' in parallel with 'tinymce-grunt dev'
     // that will save 2-3 seconds on incremental builds
     'copy:ui-skins',
     'copy:content-skins',

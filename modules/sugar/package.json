@@ -23,10 +23,12 @@
   "author": "Ephox Corporation DBA Tiny Technologies, Inc",
   "license": "MIT",
   "dependencies": {
+    "@ephox/dispute": "^1.0.3",
     "@ephox/katamari": "^9.1.6",
     "@ephox/sand": "^6.0.10"
   },
   "devDependencies": {
+    "@ephox/bedrock-client": "11 || 12 || 13 || 14",
     "@ephox/katamari-assertions": "^4.0.10"
   },
   "files": [
