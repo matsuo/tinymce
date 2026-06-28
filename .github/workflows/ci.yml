@@ -44,7 +44,7 @@ jobs:
         uses: browser-actions/setup-chrome@2e1d749697dd1612b833dba4a722266286fbefcd # v2.1.2
         id: setup-chrome
         with:
-          chrome-version: 136
+          chrome-version: 138
           install-chromedriver: true
           install-dependencies: true
 
