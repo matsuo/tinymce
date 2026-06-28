@@ -92,7 +92,8 @@ const cTestPopupInViewport = (sinkName: string): NamedChain => Chain.control(
 );
 
 const cScrollTo = Chain.mapper((component: AlloyComponent) => {
-  component.element.dom.scrollIntoView();
+  const bcr = component.element.dom.getBoundingClientRect();
+  window.scrollTo(0, window.scrollY + bcr.top);
   const doc = Traverse.owner(component.element);
   return Scroll.get(doc);
 });
@@ -100,6 +101,10 @@ const cScrollTo = Chain.mapper((component: AlloyComponent) => {
 const cAddTopBottomMargin = (amount: string): Chain<AlloyComponent, AlloyComponent> => Chain.op((component) => {
   addTopBottomMargin(component, amount);
 });
+
+const ensureScrollableArea = (): void => {
+  document.body.style.paddingBottom = '2000px';
+};
 
 const cTestSinkPopupPosition = (sinkName: string): NamedChain => Chain.fromChains([
   cTestPopupInSink(sinkName, sinkName),
@@ -134,6 +139,7 @@ export {
   cTestSink,
   cTestSinkWithinBounds,
   cScrollDown,
+  ensureScrollableArea,
   pTestSink,
   pTestSinkWithinBounds
 };

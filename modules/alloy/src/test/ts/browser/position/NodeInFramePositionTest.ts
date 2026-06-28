@@ -50,6 +50,8 @@ UnitTest.asynctest('SelectionInFramePositionTest', (success, failure) => {
     );
 
   }, (_doc, _body, gui, _component, _store) => {
+    PositionTestUtils.ensureScrollableArea();
+
     const cSetupAnchor = Chain.mapper((data: any) => {
       const node = data.classic.element.dom.contentWindow.document.querySelector('#p3');
       return {
