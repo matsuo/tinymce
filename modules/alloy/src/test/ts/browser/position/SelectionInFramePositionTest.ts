@@ -51,6 +51,8 @@ UnitTest.asynctest('SelectionInFramePositionTest', (success, failure) => {
     );
 
   }, (_doc, _body, gui, _component, _store) => {
+    PositionTestUtils.ensureScrollableArea();
+
     const cSetupAnchor = Chain.mapper((data: any) => ({
       type: 'selection',
       root: SugarElement.fromDom(data.classic.element.dom.contentWindow.document.body)
