@@ -23,7 +23,7 @@ def runBedrockTest(String name, String command, Boolean runAll, int retry = 0, i
 }
 
 def runHeadlessTests(Boolean runAll) {
-  def bedrockCmd = "yarn grunt headless-auto --useSelenium=true"
+  def bedrockCmd = "pnpm grunt headless-auto --useSelenium=true"
   runBedrockTest('headless', bedrockCmd, runAll)
 }
 
@@ -32,7 +32,7 @@ def runRemoteTests(String name, String browser, String provider, String platform
   def platformName = platform != null ? " --platformName='${platform}'" : ""
   def browserVersion = version != null ? " --browserVersion=${version}" : ""
   def bedrockCommand =
-  "yarn browser-test" +
+  "pnpm run browser-test" +
     " --chunk=400" +
     " --bedrock-browser=" + browser +
     " --remote=" + provider +
@@ -47,7 +47,7 @@ def runRemoteTests(String name, String browser, String provider, String platform
 
 def runBrowserTests(String name, String browser, String platform, String bucket, String buckets, Boolean runAll) {
   def bedrockCommand =
-    "yarn grunt browser-auto" +
+    "pnpm grunt browser-auto" +
       " --chunk=400" +
       " --bedrock-os=" + platform +
       " --bedrock-browser=" + browser +
@@ -104,9 +104,9 @@ def runTestNode(String branch, String name, String browser, String platform, Str
 
         // Clean and Install
         exec("git clean -fdx modules scratch js dist")
-        yarnInstall()
+        exec("corepack enable && pnpm install --frozen-lockfile")
 
-        exec("yarn ci")
+        exec("pnpm run ci")
         echo "Running browser tests"
         //(String name, String browser, String platform, String bucket, String buckets, Boolean runAll)
         runBrowserTests(name, browser, platform, bucket, buckets, runAll)
@@ -132,7 +132,7 @@ def runHeadlessPod(String cacheName, Boolean runAll) {
       build: cacheName
     ) {
       stage("Headless-chrome") {
-        yarnInstall()
+        exec("corepack enable && pnpm install --frozen-lockfile")
         grunt('list-changed-headless')
         runHeadlessTests(runAll)
       }
@@ -181,17 +181,17 @@ timestamps {
     }
 
     stage('Install') {
-      yarnInstall()
+      exec("corepack enable && pnpm install --frozen-lockfile")
     }
 
     stage('Type check') {
       withEnv(["NODE_OPTIONS=--max-old-space-size=1936"]) {
-        exec("yarn ci-all-seq")
+        exec("pnpm run ci-all-seq")
       }
     }
 
     stage('Moxiedoc check') {
-      exec("yarn tinymce-grunt shell:moxiedoc")
+      exec("pnpm tinymce-grunt shell:moxiedoc")
     }
   }
 

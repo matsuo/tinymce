@@ -8,7 +8,7 @@
     "directory": "modules/jax"
   },
   "scripts": {
-    "prepublishOnly": "yarn run lint && yarn run build",
+    "prepublishOnly": "pnpm run lint && pnpm run build",
     "lint": "eslint --config ../../.eslintrc.json src/**/*.ts",
     "build": "tsc -b",
     "test": "bedrock-auto -b chrome-headless --customRoutes src/test/json/routes.json -d src/test/ts/",
@@ -23,6 +23,9 @@
   "license": "MIT",
   "dependencies": {
     "@ephox/katamari": "^9.1.6"
+  },
+  "devDependencies": {
+    "@ephox/bedrock-client": "11 || 12 || 13 || 14"
   },
   "files": [
     "lib/main",

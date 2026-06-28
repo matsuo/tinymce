@@ -1,0 +1,18 @@
+packages:
+  - "modules/*"
+
+nodeLinker: hoisted
+linkWorkspacePackages: true
+minimumReleaseAge: 20160
+
+patchedDependencies:
+  dompurify@3.1.7: patches/dompurify@3.1.7.patch
+
+allowBuilds:
+  core-js: false
+  core-js-bundle: false
+  edgedriver: false
+  es5-ext: false
+  fsevents: false
+  geckodriver: false
+  nx: false

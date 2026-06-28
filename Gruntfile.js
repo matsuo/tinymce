@@ -53,6 +53,7 @@ const bedrockHeadless = (tests, browser, auto, opts) => {
         name: 'headless-tests',
         browser,
         testfiles: testFolders(tests, auto),
+        extraBrowserCapabilities: ' --no-sandbox --disable-dev-shm-usage --user-data-dir=/tmp/bedrock-chrome',
 
         // we have a few tests that don't play nicely when combined together in the monorepo
         retries: 3,
@@ -94,7 +95,7 @@ const fetchLernaProjects = (grunt, runAllTests) => {
   // if JSON parse fails, well, grunt will just fail /shrug
   const parseLernaList = (cmd) => {
     try {
-      const output = exec(`yarn -s lerna ${cmd} -a --json --loglevel warn`);
+      const output = exec(`pnpm lerna ${cmd} -a --json --loglevel warn`);
       grunt.verbose.writeln(`lerna output: ${output}`);
       return JSON.parse(output);
     } catch (e) {
@@ -147,10 +148,10 @@ module.exports = function (grunt) {
   const opts = bedrockOpts(grunt, ['name', 'username', 'accesskey', 'sishDomain', 'devicefarmArn', 'devicefarmRegion', 'platformName', 'browserVersion', 'useSelenium']);
   const gruntConfig = {
     shell: {
-      tsc: { command: 'yarn -s tsc' },
-      legacy: { command: 'yarn build' },
-      yarn: { command: 'yarn' },
-      'yarn-dev': { command: 'yarn -s dev' }
+      tsc: { command: 'pnpm tsc' },
+      legacy: { command: 'pnpm run build' },
+      install: { command: 'pnpm install' },
+      dev: { command: 'pnpm run dev' }
     },
     'bedrock-auto': {
       ...bedrockHeadless(headlessTests, headlessBrowser, true, opts),
@@ -202,7 +203,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('legacy-warn', () => grunt.log.warn(`
 *******
-Top-level grunt has been replaced by 'yarn build', and the output has moved from project root to modules/tinymce
+Top-level grunt has been replaced by 'pnpm run build', and the output has moved from project root to modules/tinymce
 *******
 `));
 
