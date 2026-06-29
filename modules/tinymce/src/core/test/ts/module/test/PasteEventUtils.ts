@@ -80,6 +80,8 @@ const pWaitForAndAssertInputEvents = async (beforeinputEvent: SingletonEvent<Inp
       const dataTransfer = e.dataTransfer;
       if (isNative && (browser.isFirefox() || browser.isSafari())) {
         assert.equal(dataTransfer?.getData('text/html'), expectedBeforeinputDataTransferHtml, 'input event dataTransfer should contain expected html data');
+      } else if (isNative && browser.isChromium() && browser.version.major >= 143) {
+        assert.isNotNull(dataTransfer, 'input event dataTransfer should not be null');
       } else {
         assert.isNull(dataTransfer, 'input event dataTransfer should be null');
       }
